@@ -1,6 +1,6 @@
 # DevinotelecomSms Notification Channel For Laravel 5.7+
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/ol-zamovshafu/devinotelecom-laravel.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/jet-sms)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/ol-zamovshafu/devinotelecom-laravel.svg?style=flat-square)](https://packagist.org/packages/ol-zamovshafu/devinotelecom-laravel)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
 This package makes it easy to send notifications using [Devinotelecom](https://devinotele.com) with Laravel 5.7.
@@ -92,7 +92,7 @@ class ResetPasswordWasRequested extends Notification
      * @param  mixed  $notifiable
      * @return string|\Zamovshafu\Devinotelecom\ShortMessage
      */
-    public function toJetSms($notifiable) {
+    public function toDevinotelecomSms($notifiable) {
         return "Test notification";
         // Or
         return new ShortMessage($notifiable->phone_number, 'Test notification');
@@ -127,7 +127,7 @@ see: [devinotelecom-php](https://github.com/ol-zamovshafu/devinotelecom-php) doc
 
 ### Available events
 
-JetSms Notification channel comes with handy events which provides the required information about the SMS messages.
+DevinotelecomSms Notification channel comes with handy events which provides the required information about the SMS messages.
 
 1. **Message Was Sent** (`NotificationChannels\Devinotelecom\Events\MessageWasSent`)
 3. **Sending Message** (`NotificationChannels\Devinotelecom\Events\SendingMessage`)
