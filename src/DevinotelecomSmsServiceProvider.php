@@ -40,7 +40,7 @@ class DevinotelecomSmsServiceProvider extends ServiceProvider
     private function registerDevinotelecomSmsClient()
     {
         $this->app->bind(Clients\ClientInterface::class, function () {
-            $username = config('services.DevinotelecomSms.username');
+            $login = config('services.DevinotelecomSms.login');
             $password = config('services.DevinotelecomSms.password');
             $originator = config('services.DevinotelecomSms.originator');
 
@@ -51,7 +51,7 @@ class DevinotelecomSmsServiceProvider extends ServiceProvider
                     $client = new Clients\HttpClient(
                         new Client(['timeout' => $timeout]),
                         $endpoint,
-                        $username,
+                        $login,
                         $password,
                         $originator
                     );
