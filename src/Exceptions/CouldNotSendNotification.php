@@ -1,6 +1,6 @@
 <?php
 
-namespace NotificationChannels\JetSms\Exceptions;
+namespace NotificationChannels\Devinotelecom\Exceptions;
 
 /**
  * Class CouldNotSendNotification.

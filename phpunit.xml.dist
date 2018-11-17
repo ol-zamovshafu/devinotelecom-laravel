@@ -10,7 +10,7 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="JetSms Test Suite">
+        <testsuite name="DevinotelecomSms Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
@@ -18,7 +18,7 @@
         <whitelist>
             <directory suffix=".php">src/</directory>
             <exclude>
-                <file>src/JetSmsServiceProvider.php</file>
+                <file>src/DevinotelecomSmsServiceProvider.php</file>
             </exclude>
         </whitelist>
     </filter>

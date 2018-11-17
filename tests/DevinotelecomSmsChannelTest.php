@@ -1,26 +1,26 @@
 <?php
 
-namespace NotificationChannels\JetSms\Test;
+namespace NotificationChannels\DevinotelecomSms\Test;
 
 use Exception;
 use Mockery as M;
 use PHPUnit\Framework\TestCase;
-use Erdemkeren\JetSms\ShortMessage;
-use NotificationChannels\JetSms\JetSms;
+use NotificationChannels\Devinotelecom\DevinotelecomSms;
+use NotificationChannels\Devinotelecom\DevinotelecomSmsChannel;
+use NotificationChannels\Devinotelecom\Exceptions\CouldNotSendNotification;
 use Illuminate\Notifications\Notification;
-use NotificationChannels\JetSms\JetSmsChannel;
-use Erdemkeren\JetSms\Http\Responses\JetSmsResponseInterface;
-use NotificationChannels\JetSms\Exceptions\CouldNotSendNotification;
+use Zamovshafu\Devinotelecom\ShortMessage;
+use Zamovshafu\Devinotelecom\Http\Responses\ResponseInterface;
 
-class JetSmsChannelTest extends TestCase
+class DevinotelecomSmsChannelTest extends TestCase
 {
     /**
-     * @var JetSmsChannel
+     * @var DevinotelecomSmsChannel
      */
     private $channel;
 
     /**
-     * @var JetSmsResponseInterface
+     * @var ResponseInterface
      */
     private $responseInterface;
 
@@ -28,8 +28,8 @@ class JetSmsChannelTest extends TestCase
     {
         parent::setUp();
 
-        $this->channel = new JetSmsChannel();
-        $this->responseInterface = M::mock(JetSmsResponseInterface::class);
+        $this->channel = new DevinotelecomSmsChannel();
+        $this->responseInterface = M::mock(ResponseInterface::class);
     }
 
     public function tearDown()
@@ -37,9 +37,9 @@ class JetSmsChannelTest extends TestCase
         parent::tearDown();
     }
 
-    public function test_it_sends_notification()
+    public function testItSendsNotification()
     {
-        JetSms::shouldReceive('sendShortMessage')
+        DevinotelecomSms::shouldReceive('sendShortMessage')
             ->once()
             ->with('+1234567890', 'foo')
             ->andReturn($this->responseInterface);
@@ -47,18 +47,18 @@ class JetSmsChannelTest extends TestCase
         $this->assertNull($this->channel->send(new TestNotifiable(), new TestNotification()));
     }
 
-    public function test_it_sends_notification_with_short_message()
+    public function testItSendsNotificationWithShortMessage()
     {
         $message = new TestNotificationWithShortMessage();
 
-        JetSms::shouldReceive('sendShortMessage')
+        DevinotelecomSms::shouldReceive('sendShortMessage')
             ->once()
             ->andReturn($this->responseInterface);
 
         $this->assertNull($this->channel->send(new TestNotifiable(), $message));
     }
 
-    public function test_it_throws_exception_if_no_receiver_provided()
+    public function testItThrowsExceptionIfNoReceiverProvided()
     {
         $e = null;
 
@@ -83,10 +83,10 @@ class TestNotification extends Notification
 {
     public function via($notifiable)
     {
-        return [JetSmsChannel::class];
+        return [DevinotelecomSmsChannel::class];
     }
 
-    public function toJetSms($notifiable)
+    public function toDevinotelecomSms($notifiable)
     {
         return 'foo';
     }
@@ -96,10 +96,10 @@ class TestNotificationWithShortMessage extends Notification
 {
     public function via($notifiable)
     {
-        return [JetSmsChannel::class];
+        return [DevinotelecomSmsChannel::class];
     }
 
-    public function toJetSms($notifiable)
+    public function toDevinotelecomSms($notifiable)
     {
         return new ShortMessage('foo', 'bar');
     }

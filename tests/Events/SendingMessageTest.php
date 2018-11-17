@@ -1,11 +1,11 @@
 <?php
 
-namespace NotificationChannels\JetSms\Test\Events;
+namespace NotificationChannels\Devinotelecom\Test\Events;
 
 use Mockery as M;
 use PHPUnit\Framework\TestCase;
-use Erdemkeren\JetSms\ShortMessage;
-use NotificationChannels\JetSms\Events\SendingMessage;
+use Zamovshafu\Devinotelecom\ShortMessage;
+use NotificationChannels\Devinotelecom\Events\SendingMessage;
 
 class SendingMessageTest extends TestCase
 {
@@ -21,7 +21,7 @@ class SendingMessageTest extends TestCase
         parent::tearDown();
     }
 
-    public function test_it_constructs()
+    public function testItConstructs()
     {
         $shortMessage = M::mock(ShortMessage::class);
 

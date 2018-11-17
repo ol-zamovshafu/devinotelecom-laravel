@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to `JetSms` will be documented in this file
+All notable changes to `DevinotelecomSms` will be documented in this file
 
 ## 2.0.0 - 2017-02-28
 

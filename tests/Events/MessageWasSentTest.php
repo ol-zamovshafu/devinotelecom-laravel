@@ -1,12 +1,12 @@
 <?php
 
-namespace NotificationChannels\JetSms\Test\Events;
+namespace NotificationChannels\Devinotelecom\Test\Events;
 
 use Mockery as M;
 use PHPUnit\Framework\TestCase;
-use Erdemkeren\JetSms\ShortMessage;
-use NotificationChannels\JetSms\Events\MessageWasSent;
-use Erdemkeren\JetSms\Http\Responses\JetSmsResponseInterface;
+use Zamovshafu\Devinotelecom\ShortMessage;
+use NotificationChannels\Devinotelecom\Events\MessageWasSent;
+use Zamovshafu\Devinotelecom\Http\Responses\ResponseInterface;
 
 class MessageWasSentTest extends TestCase
 {
@@ -22,10 +22,10 @@ class MessageWasSentTest extends TestCase
         parent::tearDown();
     }
 
-    public function test_it_constructs()
+    public function testItConstructs()
     {
         $shortMessage = M::mock(ShortMessage::class);
-        $response = M::mock(JetSmsResponseInterface::class);
+        $response = M::mock(ResponseInterface::class);
 
         $event = new MessageWasSent($shortMessage, $response);
 

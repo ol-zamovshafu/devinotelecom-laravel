@@ -1,19 +1,14 @@
-# JetSms Notification Channel For Laravel 5.3+
+# DevinotelecomSms Notification Channel For Laravel 5.7+
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/laravel-notification-channels/jet-sms.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/jet-sms)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/ol-zamovshafu/devinotelecom-laravel.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/jet-sms)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/laravel-notification-channels/jet-sms/master.svg?style=flat-square)](https://travis-ci.org/laravel-notification-channels/jet-sms)
-[![StyleCI](https://styleci.io/repos/74304440/shield?branch=master)](https://styleci.io/repos/74304440)
-[![Quality Score](https://img.shields.io/scrutinizer/g/laravel-notification-channels/jet-sms.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/jet-sms)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/laravel-notification-channels/jet-sms/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/jet-sms/?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel-notification-channels/jet-sms.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/jet-sms)
 
-This package makes it easy to send notifications using [JetSms](http://www.jetsms.net) with Laravel 5.3.
+This package makes it easy to send notifications using [Devinotelecom](https://devinotele.com) with Laravel 5.7.
 
 ## Contents
 
 - [Installation](#installation)
-    - [Setting up the JetSms service](#setting-up-the-jetSms-service)
+    - [Setting up the DevinotelecomSms service](#setting-up-the-devinotelecomSms-service)
 - [Usage](#usage)
     - [Available methods](#available-methods)
     - [Available events](#available-events)
@@ -30,7 +25,7 @@ This package makes it easy to send notifications using [JetSms](http://www.jetsm
 You can install this package via composer:
 
 ``` bash
-composer require laravel-notification-channels/jet-sms
+composer require ol-zamovshafu/devinotelecom-laravel
 ```
 
 Next add the service provider to your `config/app.php`:
@@ -40,34 +35,31 @@ Next add the service provider to your `config/app.php`:
  * Package Service Providers...
  */
 
-NotificationChannels\JetSms\JetSmsServiceProvider::class,
+NotificationChannels\Devinotelecom\DevinotelecomSmsServiceProvider::class,
 ```
 
-Register the JetSms alias to your application.
+Register the DevinotelecomSms alias to your application.
 This registration is not optional because the channel itself uses this very alias.
 
 ```php
-'JetSms' => NotificationChannels\JetSms\JetSms::class,
+'DevinotelecomSms' => NotificationChannels\Devinotelecom\DevinotelecomSms::class,
 ```
 
-### Setting up the JetSms service
+### Setting up the DevinotelecomSms service
 
-Add your desired client, username, password, originator (outbox name, sender name) and request timeout
+Add your desired client, login, password, originator (outbox name, sender name) and request timeout
 configuration to your `config/services.php` file:
                                                                      
 ```php
 ...
-    'JetSms' => [
-        'client'     => 'http', // or xml
+    'DevinotelecomSms' => [
+        'client'     => 'http',
         'http'       => [
-            'endpoint' => 'https://service.jetsms.com.tr/SMS-Web/HttpSmsSend',
+            'endpoint' => 'https://integrationapi.net/rest/',
         ],
-        'xml'        => [
-            'endpoint' => 'www.biotekno.biz:8080/SMS-Web/xmlsms',
-        ],
-        'username'   => '',
+        'login'   => '',
         'password'   => '',
-        'originator' => "", // Sender name.
+        'originator' => '', // Sender name.
         'timeout'    => 60,
     ],
 ...
@@ -78,8 +70,8 @@ configuration to your `config/services.php` file:
 Now you can use the channel in your via() method inside the notification:
 
 ```php
-use NotificationChannels\JetSms\JetSmsChannel;
-use NotificationChannels\JetSms\JetSmsMessage;
+use NotificationChannels\Devinotelecom\DevinotelecomSmsChannel;
+use Zamovshafu\Devinotelecom\ShortMessage;
 
 class ResetPasswordWasRequested extends Notification
 {
@@ -91,14 +83,14 @@ class ResetPasswordWasRequested extends Notification
      */
     public function via($notifiable)
     {
-        return [JetSmsChannel::class];
+        return [DevinotelecomSmsChannel::class];
     }
     
     /**
-     * Get the JetSms representation of the notification.
+     * Get the DevinotelecomSms representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return string|\NotificationChannels\JetSms\JetSmsMessage
+     * @return string|\Zamovshafu\Devinotelecom\ShortMessage
      */
     public function toJetSms($notifiable) {
         return "Test notification";
@@ -108,14 +100,14 @@ class ResetPasswordWasRequested extends Notification
 }
 ```
 
-Don't forget to place the dedicated method for JetSms inside your notifiables. (e.g. User)
+Don't forget to place the dedicated method for DevinotelecomSms inside your notifiables. (e.g. User)
 
 ```php
 class User extends Authenticatable
 {
     use Notifiable;
-    
-    public function routeNotificationForJetSms()
+ 
+    public function routeNotificationForDevinotelecomSms()
     {
         return "905123456789";
     }
@@ -124,30 +116,21 @@ class User extends Authenticatable
 
 ### Available methods
 
-JetSms can also be used directly to send short messages.
+DevinotelecomSms can also be used directly to send short messages.
 
 Examples:
 ```php
-JetSms::sendShortMessage($to, $message);
-JetSms::sendShortMessages([[
-    'recipient' => $to,
-    'message'   => $message,
-], [
-    'recipient' => $anotherTo,
-    'message'   => $anotherMessage,
-]]);
+DevinotelecomSms::sendShortMessage($to, $message);
 ```
 
-see: [jet-sms-php](https://github.com/erdemkeren/jet-sms-php) documentation for more information.
+see: [devinotelecom-php](https://github.com/ol-zamovshafu/devinotelecom-php) documentation for more information.
 
 ### Available events
 
 JetSms Notification channel comes with handy events which provides the required information about the SMS messages.
 
-1. **Message Was Sent** (`NotificationChannels\JetSms\Events\MessageWasSent`)
-2. **Messages Were Sent** (`NotificationChannels\JetSms\Events\MessageWasSent`)
-3. **Sending Message** (`NotificationChannels\JetSms\Events\SendingMessage`)
-4. **Sending Messages** (`NotificationChannels\JetSms\Events\SendingMessages`)
+1. **Message Was Sent** (`NotificationChannels\Devinotelecom\Events\MessageWasSent`)
+3. **Sending Message** (`NotificationChannels\Devinotelecom\Events\SendingMessage`)
 
 Example:
 
@@ -156,7 +139,7 @@ namespace App\Listeners;
 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use NotificationChannels\JetSms\Events\MessageWasSent;
+use NotificationChannels\Devinotelecom\Events\MessageWasSent;
 
 class SentMessageHandler
 {
@@ -177,9 +160,8 @@ class SentMessageHandler
 ### Notes
 
 $response->groupId() will throw BadMethodCallException if the client is set to 'http'. 
-$response->messageReportIdentifiers() will throw BadMethodCallException if the client is set to 'xml'.
 
-change client configuration with caution.
+Change client configuration with caution.
 
 ## Changelog
 
@@ -193,7 +175,7 @@ $ composer test
 
 ## Security
 
-If you discover any security related issues, please email erdemkeren@gmail.com instead of using the issue tracker.
+If you discover any security related issues, please email oleg.lobanov@zamovshafu.com.ua instead of using the issue tracker.
 
 ## Contributing
 
@@ -201,9 +183,11 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Credits
 
-- [Hilmi Erdem KEREN](https://github.com/erdemkeren)
+- [Oleg Lobanov](https://github.com/ol-zamovshafu)
 - [All Contributors](../../contributors)
 
 ## License
+
+Copyright (c) Hilmi Erdem KEREN erdemkeren@gmail.com
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.

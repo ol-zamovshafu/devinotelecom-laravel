@@ -1,9 +1,9 @@
 <?php
 
-namespace NotificationChannels\JetSms\Events;
+namespace NotificationChannels\Devinotelecom\Events;
 
-use Erdemkeren\JetSms\ShortMessage;
-use Erdemkeren\JetSms\Http\Responses\JetSmsResponseInterface;
+use Zamovshafu\Devinotelecom\ShortMessage;
+use Zamovshafu\Devinotelecom\Http\Responses\ResponseInterface;
 
 /**
  * Class MessageWasSent.
@@ -20,17 +20,17 @@ class MessageWasSent
     /**
      * The Api response implementation.
      *
-     * @var JetSmsResponseInterface
+     * @var ResponseInterface
      */
     public $response;
 
     /**
      * MessageWasSent constructor.
      *
-     * @param ShortMessage            $message
-     * @param JetSmsResponseInterface $response
+     * @param ShortMessage      $message
+     * @param ResponseInterface $response
      */
-    public function __construct(ShortMessage $message, JetSmsResponseInterface $response)
+    public function __construct(ShortMessage $message, ResponseInterface $response)
     {
         $this->message = $message;
         $this->response = $response;

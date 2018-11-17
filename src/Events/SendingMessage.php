@@ -1,8 +1,8 @@
 <?php
 
-namespace NotificationChannels\JetSms\Events;
+namespace NotificationChannels\Devinotelecom\Events;
 
-use Erdemkeren\JetSms\ShortMessage;
+use Zamovshafu\Devinotelecom\ShortMessage;
 
 /**
  * Class SendingMessage.
@@ -10,7 +10,7 @@ use Erdemkeren\JetSms\ShortMessage;
 class SendingMessage
 {
     /**
-     * The JetSms message.
+     * The DevinotelecomSms message.
      *
      * @var ShortMessage
      */

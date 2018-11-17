@@ -1,14 +1,14 @@
 <?php
 
-namespace NotificationChannels\JetSms\Test;
+namespace NotificationChannels\Devinotelecom\Test;
 
 use Mockery as M;
 use PHPUnit\Framework\TestCase;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Container\ContextualBindingBuilder;
-use NotificationChannels\JetSms\JetSmsServiceProvider;
+use NotificationChannels\Devinotelecom\DevinotelecomSmsServiceProvider;
 
-class JetSmsServiceProviderTest extends TestCase
+class DevinotelecomSmsServiceProviderTest extends TestCase
 {
     private $app;
     private $contextualBindingBuilder;
@@ -29,15 +29,12 @@ class JetSmsServiceProviderTest extends TestCase
     }
 
     /** @test */
-    public function it_should_provide_services_on_boot()
+    public function itShouldProvideServicesOnBoot()
     {
-        $this->app->shouldReceive('bind')
-                  ->once();
+        $this->app->shouldReceive('bind')->once();
+        $this->app->shouldReceive('singleton')->once();
 
-        $this->app->shouldReceive('singleton')
-            ->once();
-
-        $provider = new JetSmsServiceProvider($this->app);
+        $provider = new DevinotelecomSmsServiceProvider($this->app);
 
         $this->assertNull($provider->boot());
     }
