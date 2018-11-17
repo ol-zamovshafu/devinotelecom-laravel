@@ -4,7 +4,7 @@ namespace NotificationChannels\Devinotelecom;
 
 use GuzzleHttp\Client;
 use UnexpectedValueException;
-use Zamovshafu\Devinotelecom\Clients;
+use Zamovshafu\Devinotelecom\Http\Clients;
 use Zamovshafu\Devinotelecom\ShortMessage;
 use Zamovshafu\Devinotelecom\Service;
 use Illuminate\Support\ServiceProvider;
